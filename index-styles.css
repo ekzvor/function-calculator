@@ -85,6 +85,11 @@ button:hover {
     padding: 10px;
 }
 
+#monotonicity {
+    min-height: 90px;
+    overflow: auto;
+    display: block;
+}
 /* Блок з результатом */
 #result {
     margin-top: 15px;
