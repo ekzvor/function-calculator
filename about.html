@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Про автора</title>
+  <link rel="stylesheet" href="index-styles.css">
+  <style>
+    .about-container {
+      max-width: 800px;
+      margin: 80px auto 30px;
+      background-color: #fdfaf6;
+      border: 2px solid #d2b48c;
+      border-radius: 10px;
+      padding: 30px;
+      text-align: left;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .author-photo {
+      float: right;
+      margin-left: 20px;
+      border-radius: 8px;
+      width: 180px;
+      height: auto;
+      object-fit: cover;
+      border: 2px solid #8B4513;
+    }
+
+    .lang-toggle {
+      margin-top: 10px;
+      background-color: #D2B48C;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .lang-toggle:hover {
+      background-color: #A0522D;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Калькулятор</a>
+  <a href="theory.html">Теорія</a>
+  <a href="test.html">Тест</a>
+  <a href="about.html">Про автора</a>
+</nav>
+
+<main class="about-container">
+  <button class="lang-toggle" onclick="toggleLanguage()">🌐 Змінити мову</button>
+
+  <div id="ua-content">
+    <h1>👤 Про автора</h1>
+    <img src="Ja.jpg" alt="Фото автора" class="author-photo">
+    <p><strong>Ім’я:</strong> Шаповалов Артем Євгенович</p>
+    <p><strong>Навчальний заклад:</strong> Ліцей інформаційних технологій №79 імені Бориса Патона міста Києва</p>
+    <p><strong>Telegram:</strong> <a href="https://t.me/joseph_eternal" target="_blank">@joseph_eternal</a></p>
+    <p><strong>Email:</strong> <a href="mailto:ekzvor67@gmail.com">ekzvor67@gmail.com</a></p>
+
+    <h2>💡 Про проєкт</h2>
+    <p>
+      Цей сайт-калькулятор було створено мною як навчальний та практичний проєкт з математичного аналізу.
+      Ідея виникла під час вивчення похідних у старших класах, коли стало очевидно, що більшість онлайн-інструментів —
+      надто складні або англомовні. Українських аналогів майже немає, особливо таких, що пояснюють критичні точки,
+      екстремуми, інтервали монотонності тощо.
+    </p>
+    <p>
+      Похідні — одна з ключових тем математики, яку проходять у школі цілий рік, а потім і в університеті. Цей калькулятор допомагає
+      не тільки рахувати, а й розуміти логіку розв'язання, структуру виразів та побудову графіка.
+    </p>
+  </div>
+
+  <div id="en-content" style="display: none;">
+    <h1>👤 About the Author</h1>
+    <img src="Ja.jpg" alt="Author photo" class="author-photo">
+    <p><strong>Name:</strong> Artem Shapovalov</p>
+    <p><strong>School:</strong> Lyceum of Information Technologies №79 named after Borys Paton, Kyiv</p>
+    <p><strong>Telegram:</strong> <a href="https://t.me/joseph_eternal" target="_blank">@joseph_eternal</a></p>
+    <p><strong>Email:</strong> <a href="mailto:ekzvor67@gmail.com">ekzvor67@gmail.com</a></p>
+
+    <h2>💡 About the Project</h2>
+    <p>
+      This function calculator was created as an educational project in mathematical analysis.
+      The idea came up during my studies of derivatives in high school, when I realized that most tools online are overly complex or available only in English.
+      There are almost no Ukrainian-language equivalents that provide actual explanation of critical points, extrema, monotonic intervals, etc.
+    </p>
+    <p>
+      Derivatives are a key topic studied in school throughout the academic year and beyond. This calculator not only performs calculations,
+      but also helps understand structure, logic and graphical behavior of functions.
+    </p>
+  </div>
+</main>
+
+<script>
+  function toggleLanguage() {
+    const ua = document.getElementById('ua-content');
+    const en = document.getElementById('en-content');
+    ua.style.display = ua.style.display === 'none' ? 'block' : 'none';
+    en.style.display = en.style.display === 'none' ? 'block' : 'none';
+  }
+</script>
+</body>
+</html>
