@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест з похідних</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="theory-styles.css"> <!-- Використовуємо той самий CSS для стилізації -->
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .test-question {
+            margin-bottom: 30px;
+        }
+        .test-question p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        .test-question label {
+            display: block;
+            margin: 10px 0;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #8B4513;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #A0522D;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Калькулятор</a>
+        <a href="theory.html">Теорія</a>
+        <a href="test.html">Тест</a>
+    </nav>
+
+    <div class="test-container">
+        <h1>Тестування</h1>
+
+        <!-- Завдання 1 -->
+        <div class="test-question">
+            <p><strong>Завдання 1:</strong> Знайдіть похідну функції \( (x^6 + 3x^2 - x + 3)' \).</p>
+            <form>
+                <label>
+                    <input type="radio" name="question1" value="A"> \( \frac{x^7}{7} + x^3 - \frac{x^2}{2} + 3x \)
+                </label>
+                <label>
+                    <input type="radio" name="question1" value="B"> \( 6x^5 + 6x \)
+                </label>
+                <label>
+                    <input type="radio" name="question1" value="C"> \( 6x^5 + 6x - 1 \)
+                </label>
+                <label>
+                    <input type="radio" name="question1" value="D"> \( 6x^5 + 6x - 3 \)
+                </label>
+                <label>
+                    <input type="radio" name="question1" value="E"> \( \frac{x^7}{7} + x^3 - \frac{x^2}{2} + 3x + 1 \)
+                </label>
+            </form>
+        </div>
+
+        <!-- Завдання 2 -->
+        <div class="test-question">
+            <p><strong>Завдання 2:</strong> Знайдіть похідну функції \( \left( \frac{1}{x^3} + \sqrt{x} \right)' \).</p>
+            <form>
+                <label>
+                    <input type="radio" name="question2" value="A"> \( -\frac{3}{x^2} + \frac{1}{2\sqrt{x}} \)
+                </label>
+                <label>
+                    <input type="radio" name="question2" value="B"> \( -\frac{3}{x^4} + \frac{1}{2\sqrt{x}} \)
+                </label>
+                <label>
+                    <input type="radio" name="question2" value="C"> \( -\frac{1}{3x^2} + 2\sqrt{x} \)
+                </label>
+                <label>
+                    <input type="radio" name="question2" value="D"> \( \frac{3}{x^4} + \frac{1}{\sqrt{x}} \)
+                </label>
+                <label>
+                    <input type="radio" name="question2" value="E"> \( \frac{1}{3x^2} + \frac{\sqrt{x}}{2} \)
+                </label>
+            </form>
+        </div>
+
+        <!-- Завдання 3 -->
+        <div class="test-question">
+            <p><strong>Завдання 3:</strong> Знайдіть похідну функції \( \left( \frac{1}{8} \cos x - 3 \tg x \right)' \).</p>
+            <form>
+                <label>
+                    <input type="radio" name="question3" value="A"> \( -8 \sin x - \frac{3}{\cos^2 x} \)
+                </label>
+                <label>
+                    <input type="radio" name="question3" value="B"> \( \frac{1}{8} \sin x - \frac{3}{\cos^2 x} \)
+                </label>
+                <label>
+                    <input type="radio" name="question3" value="C"> \( -\frac{1}{8} \sin x - \frac{3}{\sin^2 x} \)
+                </label>
+                <label>
+                    <input type="radio" name="question3" value="D"> \( -\frac{1}{8} \sin x - 3 \ctg x \)
+                </label>
+                <label>
+                    <input type="radio" name="question3" value="E"> \( -\frac{1}{8} \sin x - \frac{3}{\cos^2 x} \)
+                </label>
+            </form>
+        </div>
+
+        <!-- Завдання 4 -->
+        <div class="test-question">
+            <p><strong>Завдання 4:</strong> Знайдіть похідну функції \( y = 5 \sin 7x - 7x^2 + 7 \).</p>
+            <form>
+                <label>
+                    <input type="radio" name="question4" value="A"> \( 5 \cos 7x - 14x \)
+                </label>
+                <label>
+                    <input type="radio" name="question4" value="B"> \( 35 \cos 7x - 7x \)
+                </label>
+                <label>
+                    <input type="radio" name="question4" value="C"> \( 35 \cos 7x - 14x \)
+                </label>
+                <label>
+                    <input type="radio" name="question4" value="D"> \( 7 \cos 7x - 7x + 7 \)
+                </label>
+                <label>
+                    <input type="radio" name="question4" value="E"> \( 5 \cos 7x - 7x \)
+                </label>
+            </form>
+        </div>
+
+        <!-- Завдання 5 -->
+        <div class="test-question">
+            <p><strong>Завдання 5:</strong> Знайдіть похідну функції \( y = \ln (2x) + 2x^3 - 3 \).</p>
+            <form>
+                <label>
+                    <input type="radio" name="question5" value="A"> \( \frac{1}{x} + 6x^2 - 3x \)
+                </label>
+                <label>
+                    <input type="radio" name="question5" value="B"> \( \frac{1}{2x} + 6x^2 - 3 \)
+                </label>
+                <label>
+                    <input type="radio" name="question5" value="C"> \( \frac{1}{2x} + 6x^2 \)
+                </label>
+                <label>
+                    <input type="radio" name="question5" value="D"> \( \frac{1}{x} + 6x^2 \)
+                </label>
+                <label>
+                    <input type="radio" name="question5" value="E"> \( \frac{2}{x} + 6x^2 \)
+                </label>
+            </form>
+        </div>
+
+        <!-- Завдання 6 -->
+        <div class="test-question">
+            <p><strong>Завдання 6:</strong> Знайдіть похідну функції \( \left( x^5 \cdot 7^x \right)' \).</p>
+            <form>
+                <label>
+                    <input type="radio" name="question6" value="A"> \( 5x^4 \cdot 7^x + x^5 \cdot 7^x \lg 7 \)
+                </label>
+                <label>
+                    <input type="radio" name="question6" value="B"> \( 5x^4 \cdot 7^x \ln 7 \)
+                </label>
+                <label>
+                    <input type="radio" name="question6" value="C"> \( 5x^4 \cdot 7^x \lg 7 \)
+                </label>
+                <label>
+                    <input type="radio" name="question6" value="D"> \( 5x^4 \cdot 7^x + x^5 \cdot 7^x \ln 7 \)
+                </label>
+                <label>
+                    <input type="radio" name="question6" value="E"> \( 5x^4 + 7^x \ln 7 \)
+                </label>
+            </form>
+        </div>
+
+        <!-- Завдання 7 -->
+        <div class="test-question">
+            <p><strong>Завдання 7:</strong> Знайдіть похідну функції \( \left( \frac{\ln x}{x^4} \right)' \).</p>
+            <form>
+                <label>
+                    <input type="radio" name="question7" value="A"> \( \frac{1 - 4x^3 \ln x}{x^5} \)
+                </label>
+                <label>
+                    <input type="radio" name="question7" value="B"> \( \frac{1 - 4 \ln x}{x^5} \)
+                </label>
+                <label>
+                    <input type="radio" name="question7" value="C"> \( \frac{1 - 4x^3 \ln x}{x^4} \)
+                </label>
+                <label>
+                    <input type="radio" name="question7" value="D"> \( \frac{1 - 4 \ln x}{x^4} \)
+                </label>
+                <label>
+                    <input type="radio" name="question7" value="E"> \( \frac{1 - 4x^3 \ln x}{x^8} \)
+                </label>
+            </form>
+        </div>
+
+        <!-- Завдання 8 -->
+        <div class="test-question">
+            <p><strong>Завдання 8:</strong> Знайдіть похідну функції \( (e^{3x+5})' \).</p>
+            <form>
+                <label>
+                    <input type="radio" name="question8" value="A"> \( \frac{1}{3} e^{3x+5} \)
+                </label>
+                <label>
+                    <input type="radio" name="question8" value="B"> \( 3e^x \)
+                </label>
+                <label>
+                    <input type="radio" name="question8" value="C"> \( (3x + 5) e^{3x+5} \)
+                </label>
+                <label>
+                    <input type="radio" name="question8" value="D"> \( 3e^{3x+5} \)
+                </label>
+                <label>
+                    <input type="radio" name="question8" value="E"> \( e^{3x+5} \)
+                </label>
+            </form>
+        </div>
+
+        <!-- Завдання 9 -->
+        <div class="test-question">
+            <p><strong>Завдання 9:</strong> Знайдіть похідну функції \( y = \cos 3x \) у точці \( x_0 = \frac{\pi}{18} \).</p>
+            <form>
+                <label>
+                    <input type="radio" name="question9" value="A"> \( -\frac{1}{2} \)
+                </label>
+                <label>
+                    <input type="radio" name="question9" value="B"> \( -\frac{3}{2} \)
+                </label>
+                <label>
+                    <input type="radio" name="question9" value="C"> \( -\frac{3\sqrt{3}}{2} \)
+                </label>
+                <label>
+                    <input type="radio" name="question9" value="D"> \( -\frac{\sqrt{3}}{2} \)
+                </label>
+                <label>
+                    <input type="radio" name="question9" value="E"> \( \frac{3}{2} \)
+                </label>
+            </form>
+        </div>
+
+        <!-- Завдання 10 -->
+        <div class="test-question">
+            <p><strong>Завдання 10:</strong> Знайдіть кут, який утворює з додатним напрямом осі \( x \) дотична до графіка функції \( y = \frac{1}{4}x^4 \) у точці \( x_0 = -1 \).</p>
+            <form>
+                <label>
+                    <input type="radio" name="question10" value="A"> \( 30^\circ \)
+                </label>
+                <label>
+                    <input type="radio" name="question10" value="B"> \( 45^\circ \)
+                </label>
+                <label>
+                    <input type="radio" name="question10" value="C"> \( 120^\circ \)
+                </label>
+                <label>
+                    <input type="radio" name="question10" value="D"> \( 135^\circ \)
+                </label>
+                <label>
+                    <input type="radio" name="question10" value="E"> \( 150^\circ \)
+                </label>
+            </form>
+        </div>
+
+        <!-- Завдання 11 -->
+        <div class="test-question">
+            <p><strong>Завдання 11:</strong> Рівняння дотичної до кривої \( y = 2x^2 - 4x - 1 \) має вигляд: \( y = 8x - 19 \). Визначити абсцису точки дотику.</p>
+            <form>
+                <label>
+                    <input type="radio" name="question11" value="A"> 2
+                </label>
+                <label>
+                    <input type="radio" name="question11" value="B"> 3
+                </label>
+                <label>
+                    <input type="radio" name="question11" value="C"> 4
+                </label>
+                <label>
+                    <input type="radio" name="question11" value="D"> -4
+                </label>
+                <label>
+                    <input type="radio" name="question11" value="E"> 8
+                </label>
+            </form>
+        </div>
+
+        <!-- Завдання 12 -->
+        <div class="test-question">
+            <p><strong>Завдання 12:</strong> Скласти рівняння дотичної до графіка функції \( y = x^3 \) у точці \( (2; 8) \).</p>
+            <form>
+                <label>
+                    <input type="radio" name="question12" value="A"> \( y + 8 = 12(x + 2) \)
+                </label>
+                <label>
+                    <input type="radio" name="question12" value="B"> \( y - 8 = \frac{1}{12}(x - 2) \)
+                </label>
+                <label>
+                    <input type="radio" name="question12" value="C"> \( y - 8 = x - 2 \)
+                </label>
+                <label>
+                    <input type="radio" name="question12" value="D"> \( y - 8 = 8(x - 2) \)
+                </label>
+                <label>
+                    <input type="radio" name="question12" value="E"> \( y - 8 = 12(x - 2) \)
+                </label>
+            </form>
+        </div>
+
+        <!-- Завдання 13 -->
+        <div class="test-question">
+            <p><strong>Завдання 13:</strong> На кривій \( f(x) = x^2 - x + 1 \) знайти точку, в якій дотична до кривої паралельна до прямої \( 3x - y - 1 = 0 \).</p>
+            <form>
+                <label>
+                    <input type="radio" name="question13" value="A"> \( (2; 3) \)
+                </label>
+                <label>
+                    <input type="radio" name="question13" value="B"> \( (0; 3) \)
+                </label>
+                <label>
+                    <input type="radio" name="question13" value="C"> \( (0; 1) \)
+                </label>
+                <label>
+                    <input type="radio" name="question13" value="D"> \( 2 \)
+                </label>
+                <label>
+                    <input type="radio" name="question13" value="E"> \( 3 \)
+                </label>
+            </form>
+        </div>
+
+        <!-- Завдання 14 -->
+        <div class="test-question">
+            <p><strong>Завдання 14:</strong> Знайти усі значення параметра \( a \), за яких числа \( x_1 \), \( \sqrt{a^2 + 3} \), \( x_2 \) утворюють геометричну прогресію, якщо \( x_1 \) та \( x_2 \) — абсциси точок графіка функції \( f(x) = x^3 + 7x^2 + (2 - 9a)x \), у яких дотичні до графіка нахилені до осі абсцис під кутом \( 135^\circ \).</p>
+            <form>
+                <label>
+                    <input type="radio" name="question14" value="A"> \( -1 \)
+                </label>
+                <label>
+                    <input type="radio" name="question14" value="B"> \( 1 \)
+                </label>
+                <label>
+                    <input type="radio" name="question14" value="C"> \( 0 \)
+                </label>
+                <label>
+                    <input type="radio" name="question14" value="D"> \( 0; 1 \)
+                </label>
+                <label>
+                    <input type="radio" name="question14" value="E"> \( -1; 0 \)
+                </label>
+            </form>
+        </div>
+
+        <!-- Завдання 15 -->
+        <div class="test-question">
+            <p><strong>Завдання 15:</strong> Знайти миттєву швидкість точки, яка рухається за законом \( s(t) = t^2 - 4\sqrt{t} \) у момент \( t_0 = 4 \).</p>
+            <form>
+                <label>
+                    <input type="radio" name="question15" value="A"> 5
+                </label>
+                <label>
+                    <input type="radio" name="question15" value="B"> 4.75
+                </label>
+                <label>
+                    <input type="radio" name="question15" value="C"> 12
+                </label>
+                <label>
+                    <input type="radio" name="question15" value="D"> 7
+                </label>
+                <label>
+                    <input type="radio" name="question15" value="E"> 7.875
+                </label>
+            </form>
+        </div>
+
+        <!-- Кнопка для перевірки результатів -->
+        <button onclick="checkAnswers()">Перевірити відповіді</button>
+
+        <!-- Блок для відображення результатів -->
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Правильні відповіді
+        const correctAnswers = {
+            question1: "C", // Правильна відповідь для завдання 1
+            question2: "A", // Правильна відповідь для завдання 2
+            question3: "E", // Правильна відповідь для завдання 3
+            question4: "C", // Правильна відповідь для завдання 4
+            question5: "D", // Правильна відповідь для завдання 5
+            question6: "D", // Правильна відповідь для завдання 6
+            question7: "A", // Правильна відповідь для завдання 7
+            question8: "D", // Правильна відповідь для завдання 8
+            question9: "C", // Правильна відповідь для завдання 9
+            question10: "D", // Правильна відповідь для завдання 10
+            question11: "A", // Правильна відповідь для завдання 6
+            question12: "E", // Правильна відповідь для завдання 7
+            question13: "A", // Правильна відповідь для завдання 8
+            question14: "E", // Правильна відповідь для завдання 9
+            question15: "E" // Правильна відповідь для завдання 10
+        };
+
+        // Функція для перевірки відповідей
+        function checkAnswers() {
+            let score = 0;
+            const totalQuestions = Object.keys(correctAnswers).length;
+
+            // Перевіряємо кожне завдання
+            for (let question in correctAnswers) {
+                const selectedAnswer = document.querySelector(`input[name="${question}"]:checked`);
+                if (selectedAnswer && selectedAnswer.value === correctAnswers[question]) {
+                    score++;
+                }
+            }
+
+            // Виводимо результат
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `Ви відповіли правильно на <strong>${score}</strong> з <strong>${totalQuestions}</strong> завдань.`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+/* Основні стилі для theory.html */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f5f2;
+    color: #2c3e50;
+    margin: 0;
+    padding-left: 20px;
+    padding-top: 60px; /* Щоб контент не ховався за фіксоване меню */
+    text-align: left;
+}
+
+/* Фіксоване меню */
+nav {
+    background: #8B4513;
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    margin: 0 15px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #FFD700;
+}
+
+/* Теорія */
+.theory {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Блок прикладів */
+.example {
+    background: #f9f9f9;
+    padding: 15px;
+    border-left: 5px solid #8B4513;
+    margin: 20px 0;
+}
+
+/* Універсальні кнопки */
+.page-button {
+    background-color: #3498db;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.page-button:hover {
+    background-color: #2980b9;
+}
+
+/* Щоб сторінка не прилипала до верху */
+.content {
+    margin-top: 80px;
+}
+
+/* Жирний шрифт для формул */
+.MathJax, .MathJax_Display, .mjx-chtml, .mjx-math {
+    font-weight: bold !important;
+    
+}

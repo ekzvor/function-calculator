@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор функцій</title>
+    <link rel="stylesheet" href="index-styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .collapsible {
+            background-color: #f1f1f1;
+            color: #444;
+            cursor: pointer;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 16px;
+            margin-top: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .collapsible:hover {
+            background-color: #ddd;
+        }
+
+        .collapsible:after {
+            content: '\002B';
+            color: #777;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .active:after {
+            content: "\2212";
+        }
+
+        .content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: white;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .analysis-container {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            background-color: white;
+            max-height: 600px; /* Збільшено висоту */
+            overflow-y: auto;  /* Додаємо прокручування, якщо вміст перевищує висоту */
+        }
+
+        .analysis-item {
+            margin-bottom: 20px;  /* Збільшено відступ між елементами */
+            padding-bottom: 15px;  /* Збільшено внутрішній відступ */
+            border-bottom: 1px solid #eee;
+            min-height: 120px;  /* Мінімальна висота елемента */
+        }
+
+        /* Збільшимо розмір тексту в аналізі */
+        .analysis-item p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 10px 0;
+        }
+
+        .analysis-item:last-child {
+            border-bottom: none;
+        }
+
+        .graph-container {
+            margin-top: 20px;
+            height: 400px;
+        }
+
+        .highlight {
+            background-color: #ffffcc;
+            transition: background-color 0.5s;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+        }
+
+        .dropdown-content button {
+            width: 100%;
+            text-align: left;
+            padding: 8px 12px;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        .dropdown-content button:hover {
+            background-color: #ddd;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .result-message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .success {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+
+        .error {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+
+        .loading {
+            color: #31708f;
+            background-color: #d9edf7;
+        }
+    </style>
+</head>
+<body>
+<h1>Калькулятор функцій</h1>
+
+<nav>
+    <a href="index.html">Калькулятор</a>
+    <a href="theory.html">Теорія</a>
+    <a href="test.html">Тест</a>
+    <a href="#about">Про автора</a>
+</nav>
+
+<div id="calculator">
+    <form id="function-form">
+        <label for="functionInput">Введіть функцію:</label>
+        <input type="text" id="functionInput" value="f(x) =" readonly>
+        <div class="buttons">
+            <button type="button" onclick="appendValue('x')">x</button>
+            <button type="button" onclick="appendValue('/')">/</button>
+            <button type="button" onclick="appendValue('+')">+</button>
+            <button type="button" onclick="appendValue('-')">-</button>
+            <button type="button" onclick="appendValue('*')">*</button>
+            <button type="button" onclick="appendValue('^')">^</button>
+            <button type="button" onclick="appendValue('sqrt(')">√</button>
+            <button type="button" onclick="appendValue(',')">,</button>
+            <button type="button" onclick="appendValue('(')">(</button>
+            <button type="button" onclick="appendValue(')')">)</button>
+            <button type="button" onclick="appendValue('0')">0</button>
+            <button type="button" onclick="appendValue('1')">1</button>
+            <button type="button" onclick="appendValue('2')">2</button>
+            <button type="button" onclick="appendValue('3')">3</button>
+            <button type="button" onclick="appendValue('4')">4</button>
+            <button type="button" onclick="appendValue('5')">5</button>
+            <button type="button" onclick="appendValue('6')">6</button>
+            <button type="button" onclick="appendValue('7')">7</button>
+            <button type="button" onclick="appendValue('8')">8</button>
+            <button type="button" onclick="appendValue('9')">9</button>
+
+            <div class="dropdown">
+                <button type="button" onclick="toggleDropdown('trigDropdown')">Trig</button>
+                <div id="trigDropdown" class="dropdown-content">
+                    <button type="button" onclick="appendValue('sin(')">sin</button>
+                    <button type="button" onclick="appendValue('cos(')">cos</button>
+                    <button type="button" onclick="appendValue('tan(')">tan</button>
+                    <button type="button" onclick="appendValue('ctg(')">ctg</button>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button type="button" onclick="toggleDropdown('logDropdown')">Log</button>
+                <div id="logDropdown" class="dropdown-content">
+                    <button type="button" onclick="appendValue('ln(')">ln</button>
+                    <button type="button" onclick="appendValue('log(')">log</button>
+                    <button type="button" onclick="appendValue('lg(')">lg</button>
+                </div>
+            </div>
+
+            <button type="button" onclick="clearInput()">C</button>
+            <button type="button" id="calculate-btn">Розрахувати</button>
+        </div>
+    </form>
+
+    <div id="result" class="result-message"></div>
+
+    <div class="analysis-container">
+        <h2>Аналіз функції</h2>
+
+        <button type="button" class="collapsible" data-endpoint="derivative">Похідна</button>
+        <div class="content">
+            <p id="derivative">-</p>
+        </div>
+
+        <button type="button" class="collapsible" data-endpoint="domain">Область визначення</button>
+        <div class="content">
+            <p id="domain">-</p>
+        </div>
+
+        <button type="button" class="collapsible" data-endpoint="critical-points">Критичні точки</button>
+        <div class="content">
+            <p id="criticalPoints">-</p>
+        </div>
+
+        <button type="button" class="collapsible" data-endpoint="monotonicity">Монотонність</button>
+        <div class="content">
+            <p id="monotonicity">-</p>
+        </div>
+
+        <button type="button" class="collapsible" data-endpoint="extrema">Екстремуми</button>
+        <div class="content">
+            <p id="extrema">-</p>
+        </div>
+
+        <button type="button" class="collapsible" data-endpoint="parity">Парність</button>
+        <div class="content">
+            <p id="parity">-</p>
+        </div>
+
+        <button type="button" class="collapsible" data-endpoint="intersections">Перетин з осями</button>
+        <div class="content">
+            <p id="intersections">-</p>
+        </div>
+
+        <button type="button" class="collapsible" data-endpoint="minmax">Мінімум/максимум</button>
+        <div class="content">
+            <p id="minmax">-</p>
+        </div>
+
+        <button type="button" class="collapsible" data-endpoint="graph">Графік функції</button>
+        <div class="content">
+            <div class="graph-container">
+                <canvas id="graphCanvas"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Глобальна змінна для графіка
+    let functionChart = null;
+    let currentFunction = '';
+
+    // Функції для роботи з калькулятором
+    function appendValue(value) {
+        const input = document.getElementById('functionInput');
+        if (input.value === 'f(x) =') {
+            input.value = 'f(x) = ' + value;
+        } else {
+            input.value += value;
+        }
+        input.focus();
+    }
+
+    function clearInput() {
+        // Очищаємо поле введення
+        document.getElementById('functionInput').value = 'f(x) =';
+        currentFunction = '';
+
+        // Очищаємо повідомлення результату
+        const resultDiv = document.getElementById('result');
+        resultDiv.textContent = '';
+        resultDiv.className = 'result-message';
+
+        // Очищаємо всі аналітичні поля
+        const analysisFields = [
+            'derivative', 'domain', 'criticalPoints',
+            'monotonicity', 'extrema', 'parity',
+            'intersections', 'minmax'
+        ];
+
+        analysisFields.forEach(field => {
+            const element = document.getElementById(field);
+            if (element) {
+                element.textContent = '-';
+                element.className = '';
+            }
+        });
+
+        // Закриваємо всі розгорнуті розділи
+        document.querySelectorAll('.collapsible').forEach(button => {
+            button.classList.remove("active");
+            const content = button.nextElementSibling;
+            content.style.maxHeight = null;
+        });
+
+        // Очищаємо графік
+        if (functionChart) {
+            functionChart.destroy();
+            functionChart = new Chart(
+                document.getElementById('graphCanvas').getContext('2d'),
+                {
+                    type: 'line',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            label: 'Введіть функцію для побудови графіка',
+                            data: [],
+                            borderColor: 'rgb(75, 192, 192)',
+                            borderWidth: 2,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: { title: { display: true, text: 'x' } },
+                            y: { title: { display: true, text: 'f(x)' } }
+                        }
+                    }
+                }
+            );
+        }
+    }
+
+    function toggleDropdown(dropdownId) {
+        document.getElementById(dropdownId).classList.toggle("show");
+    }
+
+    // Закриття випадаючих меню при кліку поза ними
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropdown button')) {
+            const dropdowns = document.getElementsByClassName("dropdown-content");
+            for (let i = 0; i < dropdowns.length; i++) {
+                const openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+
+    // Функція для малювання графіка
+    function drawGraph(functionInput, points) {
+        const ctx = document.getElementById('graphCanvas').getContext('2d');
+
+        // Якщо графік вже існує, знищити його
+        if (functionChart) {
+            functionChart.destroy();
+        }
+
+        // Перетворити точки у числовий формат
+        const numericPoints = points.map(p => ({
+            x: typeof p.x === 'string' ? parseFloat(p.x) : p.x,
+            y: typeof p.y === 'string' ? parseFloat(p.y) : p.y
+        }));
+
+        // Відсортувати точки за x для коректного відображення
+        numericPoints.sort((a, b) => a.x - b.x);
+
+        // Підготувати мітки для осі X
+        const labels = numericPoints.map(p => p.x.toFixed(1));
+        const dataValues = numericPoints.map(p => p.y);
+
+        // Створити новий графік
+        functionChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: `Графік функції: ${functionInput}`,
+                    data: dataValues,
+                    borderColor: 'rgb(75, 192, 192)',
+                    borderWidth: 2,
+                    fill: false,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'x'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'f(x)'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Функція для виклику звичайних ендпоінтів
+    async function callEndpoint(endpoint, functionInput) {
+        const elementId = endpoint === 'critical-points' ? 'criticalPoints' : endpoint;
+        const element = document.getElementById(elementId);
+
+        element.textContent = 'Обчислення...';
+        element.className = 'loading';
+
+        try {
+            const response = await fetch(`https://www.function-calculator.store/api/functions/${endpoint}`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ "function": functionInput })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Помилка сервера: ${response.status}`);
+            }
+
+            const data = await response.json();
+            element.textContent = data.result || 'Не вдалося обчислити';
+            element.className = '';
+            highlightResult(element);
+        } catch (error) {
+            console.error(`Помилка при виклику ${endpoint}:`, error);
+            element.textContent = `Помилка: ${error.message}`;
+            element.className = 'error';
+        }
+    }
+
+    // Функція для виклику ендпоінту графіка
+    async function callGraphEndpoint(functionInput) {
+        const graphContainer = document.querySelector('#graphCanvas').parentElement;
+        const canvas = document.getElementById('graphCanvas');
+
+        // Створюємо елемент для повідомлень, якщо його немає
+        let messageElement = graphContainer.querySelector('p');
+        if (!messageElement) {
+            messageElement = document.createElement('p');
+            graphContainer.prepend(messageElement);
+        }
+
+        messageElement.textContent = 'Будуємо графік...';
+        messageElement.className = 'loading';
+
+        try {
+            const response = await fetch('https://www.function-calculator.store/api/functions/graph', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ "function": functionInput })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Помилка сервера: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            if (!data.points || data.points.length === 0) {
+                throw new Error('Немає даних для побудови графіка');
+            }
+
+            // Приховуємо повідомлення
+            messageElement.style.display = 'none';
+
+            // Малюємо графік
+            drawGraph(functionInput, data.points);
+
+        } catch (error) {
+            console.error('Помилка при побудові графіка:', error);
+            messageElement.textContent = `Помилка: ${error.message}`;
+            messageElement.className = 'error';
+            messageElement.style.display = 'block';
+        }
+    }
+
+    // Функція для підсвітки результату
+    function highlightResult(element) {
+        element.classList.add('highlight');
+        setTimeout(() => {
+            element.classList.remove('highlight');
+        }, 2000);
+    }
+
+    // Обробка кнопки "Розрахувати"
+    document.getElementById('calculate-btn').addEventListener('click', function() {
+        currentFunction = document.getElementById('functionInput').value.replace('f(x) =', '').trim();
+
+        if (!currentFunction) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = 'Будь ласка, введіть функцію';
+            resultDiv.className = 'result-message error';
+            return;
+        }
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.textContent = 'Функцію введено. Натисніть на потрібний розділ для аналізу';
+        resultDiv.className = 'result-message success';
+    });
+
+    // Обробка кліків на розділи аналізу
+    document.querySelectorAll('.collapsible').forEach(button => {
+        button.addEventListener('click', function() {
+            // Згортання/розгортання контенту
+            this.classList.toggle("active");
+            const content = this.nextElementSibling;
+
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+
+                // Виклик відповідного ендпоінту при розгортанні
+                const endpoint = this.getAttribute('data-endpoint');
+                if (endpoint && currentFunction) {
+                    if (endpoint === 'graph') {
+                        callGraphEndpoint(currentFunction);
+                    } else {
+                        callEndpoint(endpoint, currentFunction);
+                    }
+                } else if (!currentFunction) {
+                    const element = endpoint === 'graph'
+                        ? content.querySelector('p')
+                        : document.getElementById(endpoint === 'critical-points' ? 'criticalPoints' : endpoint);
+                    if (element) {
+                        element.textContent = 'Спочатку введіть функцію та натисніть "Розрахувати"';
+                        element.className = 'error';
+                    }
+                }
+            }
+        });
+    });
+
+    // Ініціалізація пустого графіка при завантаженні
+    window.onload = function() {
+        const ctx = document.getElementById('graphCanvas').getContext('2d');
+        functionChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Введіть функцію для побудови графіка',
+                    data: [],
+                    borderColor: 'rgb(75, 192, 192)',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { title: { display: true, text: 'x' } },
+                    y: { title: { display: true, text: 'f(x)' } }
+                }
+            }
+        });
+    };
+</script>
+</body>
+</html>
